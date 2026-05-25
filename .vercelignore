@@ -1,0 +1,8 @@
+# Exclude heavy python backend files, models, and virtual environments from Vercel build
+backend/
+scratch/
+scratch_hf/
+src/trainedmodels/
+node_modules/
+.next/
+out/
