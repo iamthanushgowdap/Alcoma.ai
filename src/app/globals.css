@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #030712;
+  --color-foreground: #f3f4f6;
+  
+  --color-ocean-darker: #020408;
+  --color-ocean-dark: #030712;
+  --color-ocean-blue: #080f1e;
+  
+  --animate-float: float 8s ease-in-out infinite;
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+:root {
+  --background: #030712;
+  --foreground: #f3f4f6;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) rgba(3, 7, 18, 0.5);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  overflow: hidden;
+}
+
+/* Premium Minimal Glassmorphism */
+.glass-panel {
+  background: rgba(10, 15, 30, 0.35);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.09);
+  box-shadow: 0 12px 48px -8px rgba(0, 0, 0, 0.6);
+}
+
+.glass-sidebar {
+  background: rgba(3, 7, 18, 0.4);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.glass-navbar {
+  background: rgba(3, 7, 18, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Custom Scrollbar styling */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(3, 7, 18, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Sleek range input styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.05);
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f3f4f6;
+  border: 1.5px solid #030712;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background-color: #ffffff;
+}
+
+/* Premium Midnight Theme Overrides (Cosmic Purple Palette) */
+.theme-midnight {
+  --background: #03010b;
+}
+
+.theme-midnight .glass-panel {
+  background: rgba(18, 10, 32, 0.38);
+  border-color: rgba(168, 85, 247, 0.06);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.6);
+}
+
+.theme-midnight .glass-panel:hover {
+  border-color: rgba(168, 85, 247, 0.12);
+  box-shadow: 0 12px 48px -8px rgba(0, 0, 0, 0.7);
+}
+
+.theme-midnight .glass-sidebar {
+  background: rgba(4, 2, 12, 0.45);
+  border-right-color: rgba(168, 85, 247, 0.05);
+}
+
+.theme-midnight .glass-navbar {
+  background: rgba(4, 2, 12, 0.3);
+  border-bottom-color: rgba(168, 85, 247, 0.05);
+}
