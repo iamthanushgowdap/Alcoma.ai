@@ -23,7 +23,7 @@ export const useSettingsStore = create<SettingsState>()(
   persist(
     (set) => ({
       theme: 'deep-ocean',
-      apiEndpoint: 'http://127.0.0.1:8000/predict',
+      apiEndpoint: process.env.NEXT_PUBLIC_API_ENDPOINT || 'http://127.0.0.1:8000/predict',
       particlesQty: 60,
       animationsEnabled: true,
       mapTilerKey: '',
@@ -39,7 +39,7 @@ export const useSettingsStore = create<SettingsState>()(
       resetSettings: () =>
           set({
             theme: 'deep-ocean',
-            apiEndpoint: 'http://127.0.0.1:8000/predict',
+            apiEndpoint: process.env.NEXT_PUBLIC_API_ENDPOINT || 'http://127.0.0.1:8000/predict',
           particlesQty: 60,
           animationsEnabled: true,
           mapTilerKey: '',
