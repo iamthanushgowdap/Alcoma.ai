@@ -38,6 +38,27 @@ export default function AboutPage() {
         </p>
       </div>
 
+      {/* SECTION 5: PLATFORM DEVELOPER PROFILE */}
+      <GlassCard className="flex flex-col md:flex-row items-center gap-6 p-8 bg-slate-900/20 border-white/10">
+        <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white shrink-0 shadow-lg shadow-white/5">
+          <GraduationCap size={28} className="text-slate-200" />
+        </div>
+        <div className="flex-1 space-y-2 text-center md:text-left">
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
+            Platform Developer & Creator
+          </span>
+          <h3 className="text-lg font-bold text-white tracking-tight animate-pulse">
+            Thanush Gowda P
+          </h3>
+          <p className="text-xs font-semibold text-slate-400 font-mono">
+            APS College of Engineering
+          </p>
+          <p className="text-xs text-slate-400 leading-relaxed font-normal pt-1">
+            Designed and engineered Alcoma.ai as a high-precision intelligence portal for predictive marine ecology. The platform unifies heavy GPU-accelerated deep learning models (YOLOv8 best.pt) with real-time multi-spectral Copernicus satellite telemetry pipelines (Sentinel-2, Sentinel-3, and Sentinel-6) and hydro-chemical ML classifiers. Built with modern React architecture, Framer Motion, and absolute layout responsiveness to empower marine researchers and coastal conservation groups.
+          </p>
+        </div>
+      </GlassCard>
+
       {/* SECTION 2: ARCHITECTURE BLOCK DIAGRAM */}
       <GlassCard className="space-y-8">
         
@@ -141,27 +162,6 @@ export default function AboutPage() {
           ))}
         </div>
       </div>
-
-      {/* SECTION 5: PLATFORM DEVELOPER PROFILE */}
-      <GlassCard className="flex flex-col md:flex-row items-center gap-6 p-8 bg-slate-900/20 border-white/10">
-        <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white shrink-0 shadow-lg shadow-white/5">
-          <GraduationCap size={28} className="text-slate-200" />
-        </div>
-        <div className="flex-1 space-y-2 text-center md:text-left">
-          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
-            Platform Developer & Creator
-          </span>
-          <h3 className="text-lg font-bold text-white tracking-tight animate-pulse">
-            Thanush Gowda P
-          </h3>
-          <p className="text-xs font-semibold text-slate-400 font-mono">
-            APS College of Engineering
-          </p>
-          <p className="text-xs text-slate-400 leading-relaxed font-normal pt-1">
-            Designed and engineered Alcoma.ai as a high-precision intelligence portal for predictive marine ecology. The platform unifies heavy GPU-accelerated deep learning models (YOLOv8 best.pt) with real-time multi-spectral Copernicus satellite telemetry pipelines (Sentinel-2, Sentinel-3, and Sentinel-6) and hydro-chemical ML classifiers. Built with modern React architecture, Framer Motion, and absolute layout responsiveness to empower marine researchers and coastal conservation groups.
-          </p>
-        </div>
-      </GlassCard>
 
       {/* Impact quote card */}
       <GlassCard className="text-center p-8 bg-slate-950/30">
