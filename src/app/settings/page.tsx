@@ -24,15 +24,9 @@ export default function SettingsPage() {
     particlesQty,
     animationsEnabled,
     mapTilerKey,
-    sentinelClientId,
-    sentinelClientSecret,
     setTheme,
-    setApiEndpoint,
     setParticlesQty,
     toggleAnimations,
-    setMapTilerKey,
-    setSentinelClientId,
-    setSentinelClientSecret,
     resetSettings
   } = useSettingsStore();
 
@@ -71,66 +65,59 @@ export default function SettingsPage() {
               </h3>
             </div>
 
-            <div className="space-y-2">
-              <label htmlFor="api-endpoint" className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
-                FastAPI Host URL
-              </label>
-              <div className="relative">
-                <input
-                  id="api-endpoint"
-                  type="text"
-                  value={apiEndpoint}
-                  onChange={(e) => setApiEndpoint(e.target.value)}
-                  placeholder="e.g. http://localhost:8000/predict"
-                  className="w-full bg-slate-950/60 border border-white/5 rounded-xl px-4 py-3 text-xs text-white font-mono placeholder-slate-600 focus:outline-none focus:border-white/20 transition-colors"
-                />
-              </div>
-              <p className="text-[10px] text-slate-500 leading-relaxed pt-1">
-                Alcoma.ai queries this endpoint using a <code className="font-mono text-slate-400">multipart/form-data</code> POST request containing the image file under the key <code className="font-mono text-slate-400">file</code>. When down or offline, the platform falls back to simulated inference parameters.
-              </p>
-
-              {/* Dynamic Warning Alert Card */}
-              {apiEndpoint !== 'https://iamthanushgowda-alcoma-api.hf.space/predict' && (
-                <motion.div 
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-4 bg-amber-950/20 border border-amber-500/20 rounded-xl text-xs space-y-2 mt-3"
-                >
-                  <div className="flex items-center gap-2 text-amber-400 font-semibold">
-                    <AlertTriangle size={14} />
-                    <span>Active Host Endpoint Changed</span>
-                  </div>
-                  <p className="text-slate-400 leading-relaxed text-[11px]">
-                    Warning: Changing this endpoint will cause the current production API connection to go offline. Live machine learning detections will be disabled unless your custom server is active and running. Be aware before changing.
-                  </p>
-                </motion.div>
-              )}
-
-              {/* Helper Restoration Box */}
-              <div className="p-4 bg-slate-950/40 border border-white/5 rounded-xl space-y-3 mt-4">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
-                      Default Production API Endpoint
-                    </span>
-                    <code className="font-mono text-cyan-400 text-xs block break-all select-all">
-                      https://iamthanushgowda-alcoma-api.hf.space/predict
-                    </code>
-                  </div>
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText('https://iamthanushgowda-alcoma-api.hf.space/predict');
-                      alert('Default production API URL copied to clipboard!');
-                    }}
-                    className="px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/10 rounded-lg text-[10px] font-semibold text-white tracking-wider uppercase transition-colors shrink-0 flex items-center gap-1.5 self-start md:self-center cursor-pointer font-sans"
-                  >
-                    <Copy size={12} />
-                    Copy Endpoint
-                  </button>
+            <div className="space-y-4">
+              <div className="p-4 bg-slate-950/40 border border-white/5 rounded-xl space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                    Inference API Status
+                  </span>
+                  <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${
+                    apiEndpoint.includes('127.0.0.1') || apiEndpoint.includes('localhost')
+                      ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                      : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                  }`}>
+                    {apiEndpoint.includes('127.0.0.1') || apiEndpoint.includes('localhost') ? 'Local Dev Server' : 'Production Cloud'}
+                  </span>
                 </div>
-                <p className="text-[10px] text-slate-500 leading-relaxed">
-                  If you mistakenly changed the API endpoint or live detections are offline, copy and paste the default production API above to restore all detection capabilities, or use your local endpoint <code className="font-mono text-slate-400">http://127.0.0.1:8000/predict</code> when running your local development server (`npm run dev`).
+
+                <div className="space-y-1">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
+                    Active API Endpoint
+                  </span>
+                  <code className="font-mono text-cyan-400 text-xs block break-all select-all">
+                    {apiEndpoint}
+                  </code>
+                </div>
+
+                <p className="text-[10px] text-slate-500 leading-relaxed pt-1">
+                  This endpoint is resolved strictly via the <code className="font-mono text-slate-400">NEXT_PUBLIC_API_ENDPOINT</code> environment variable at build-time. For security and stability, editing the active host in the browser UI has been disabled.
                 </p>
+
+                <div className="border-t border-white/5 pt-3 mt-1 space-y-3">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
+                        Default Production API Endpoint
+                      </span>
+                      <code className="font-mono text-slate-400 text-xs block break-all select-all">
+                        https://iamthanushgowda-alcoma-api.hf.space/predict
+                      </code>
+                    </div>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText('https://iamthanushgowda-alcoma-api.hf.space/predict');
+                        alert('Default production API URL copied to clipboard!');
+                      }}
+                      className="px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/10 rounded-lg text-[10px] font-semibold text-white tracking-wider uppercase transition-colors shrink-0 flex items-center gap-1.5 self-start md:self-center cursor-pointer font-sans"
+                    >
+                      <Copy size={12} />
+                      Copy Endpoint
+                    </button>
+                  </div>
+                  <p className="text-[10px] text-slate-500 leading-relaxed">
+                    To change this server URL, update the environment variable in your Vercel Project Settings (Production) or local <code className="font-mono text-slate-400">.env</code> file (Development), then trigger a rebuild.
+                  </p>
+                </div>
               </div>
             </div>
           </GlassCard>
@@ -145,51 +132,42 @@ export default function SettingsPage() {
             </div>
 
             <div className="space-y-4">
-              {/* MapTiler Key */}
-              <div className="space-y-2">
-                <label htmlFor="maptiler-key" className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
-                  MapTiler API Key
-                </label>
-                <input
-                  id="maptiler-key"
-                  type="password"
-                  value={mapTilerKey}
-                  onChange={(e) => setMapTilerKey(e.target.value)}
-                  placeholder="Enter MapTiler API Key"
-                  className="w-full bg-slate-950/60 border border-white/5 rounded-xl px-4 py-3 text-xs text-white font-mono placeholder-slate-600 focus:outline-none focus:border-white/20 transition-colors"
-                />
-                
-                {/* Visual Explanation list */}
-                <div className="p-4 bg-slate-950/40 border border-white/5 rounded-xl space-y-3 mt-3">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                    Why is this key required?
+              <div className="p-4 bg-slate-950/40 border border-white/5 rounded-xl space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                    MapTiler Service Status
                   </span>
-                  <p className="text-[10px] text-slate-500 leading-relaxed">
-                    MapTiler is the high-performance GIS tiles engine powering Alcoma.ai. It is required to render interactive vector basemaps, compute multi-spectral Copernicus satellite coordinate zooms, and stitch hydrodynamic ocean currents canvas flows in the manual and satellite workspaces.
-                  </p>
-                  
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block pt-1">
-                    How to get your free key:
+                  <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${
+                    mapTilerKey ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                  }`}>
+                    {mapTilerKey ? 'Configured & Active' : 'Offline / Key Missing'}
                   </span>
-                  <p className="text-[10px] text-slate-500 leading-relaxed">
-                    1. Go to <a href="https://maptiler.com" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">maptiler.com</a> and sign up for a free developer account (no credit card required).<br/>
-                    2. Go to your **MapTiler Cloud Admin** dashboard.<br/>
-                    3. Under **Credentials & Keys**, copy your primary API Key and paste it into the field above.
-                  </p>
-                  
-                  {/* Deployment environment variable tips */}
-                  <div className="border-t border-white/5 pt-3 mt-1">
-                    <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider block mb-1">
-                      💡 Production Deployment Tip (Vercel)
-                    </span>
-                    <p className="text-[10px] text-slate-500 leading-relaxed">
-                      To avoid entering this key manually every time you clear browser cookies or open private windows, define it in your Vercel Project Settings as an environment variable:<br/>
-                      • <strong>Key:</strong> <code className="font-mono text-slate-400">NEXT_PUBLIC_MAPTILER_KEY</code><br/>
-                      • <strong>Value:</strong> <code className="font-mono text-slate-400">your-maptiler-api-key-here</code>
-                    </p>
-                  </div>
                 </div>
 
+                {mapTilerKey && (
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
+                      Active API Key
+                    </span>
+                    <code className="font-mono text-cyan-400 text-xs block break-all select-all">
+                      {mapTilerKey.substring(0, 6)}••••••••••••••••
+                    </code>
+                  </div>
+                )}
+
+                <p className="text-[10px] text-slate-500 leading-relaxed">
+                  MapTiler is the high-performance GIS tiles engine powering Alcoma.ai. It is required to render interactive vector basemaps, compute multi-spectral Copernicus satellite coordinate zooms, and stitch hydrodynamic ocean currents canvas flows in the manual and satellite workspaces.
+                </p>
+                
+                <div className="border-t border-white/5 pt-3 mt-1">
+                  <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider block mb-1">
+                    💡 How to configure your MapTiler Key:
+                  </span>
+                  <p className="text-[10px] text-slate-500 leading-relaxed">
+                    1. Go to <a href="https://maptiler.com" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">maptiler.com</a> and sign up for a free developer account.<br/>
+                    2. Define the key in your Vercel Project Settings as the environment variable <code className="font-mono text-slate-400">NEXT_PUBLIC_MAPTILER_KEY</code> (Production) or add it to your local <code className="font-mono text-slate-400">.env</code> file (Development), then trigger a rebuild.
+                  </p>
+                </div>
               </div>
             </div>
           </GlassCard>
