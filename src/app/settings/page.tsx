@@ -9,7 +9,9 @@ import {
   Sliders,
   Database,
   Cpu,
-  Globe
+  Globe,
+  AlertTriangle,
+  Copy
 } from 'lucide-react';
 import GlassCard from '@/components/GlassCard';
 import { useSettingsStore } from '@/store/useSettingsStore';
@@ -86,6 +88,50 @@ export default function SettingsPage() {
               <p className="text-[10px] text-slate-500 leading-relaxed pt-1">
                 Alcoma.ai queries this endpoint using a <code className="font-mono text-slate-400">multipart/form-data</code> POST request containing the image file under the key <code className="font-mono text-slate-400">file</code>. When down or offline, the platform falls back to simulated inference parameters.
               </p>
+
+              {/* Dynamic Warning Alert Card */}
+              {apiEndpoint !== 'https://iamthanushgowda-alcoma-api.hf.space/predict' && (
+                <motion.div 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 bg-amber-950/20 border border-amber-500/20 rounded-xl text-xs space-y-2 mt-3"
+                >
+                  <div className="flex items-center gap-2 text-amber-400 font-semibold">
+                    <AlertTriangle size={14} />
+                    <span>Active Host Endpoint Changed</span>
+                  </div>
+                  <p className="text-slate-400 leading-relaxed text-[11px]">
+                    Warning: Changing this endpoint will cause the current production API connection to go offline. Live machine learning detections will be disabled unless your custom server is active and running. Be aware before changing.
+                  </p>
+                </motion.div>
+              )}
+
+              {/* Helper Restoration Box */}
+              <div className="p-4 bg-slate-950/40 border border-white/5 rounded-xl space-y-3 mt-4">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
+                      Default Production API Endpoint
+                    </span>
+                    <code className="font-mono text-cyan-400 text-xs block break-all select-all">
+                      https://iamthanushgowda-alcoma-api.hf.space/predict
+                    </code>
+                  </div>
+                  <button
+                    onClick={() => {
+                      navigator.clipboard.writeText('https://iamthanushgowda-alcoma-api.hf.space/predict');
+                      alert('Default production API URL copied to clipboard!');
+                    }}
+                    className="px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/10 rounded-lg text-[10px] font-semibold text-white tracking-wider uppercase transition-colors shrink-0 flex items-center gap-1.5 self-start md:self-center cursor-pointer font-sans"
+                  >
+                    <Copy size={12} />
+                    Copy Endpoint
+                  </button>
+                </div>
+                <p className="text-[10px] text-slate-500 leading-relaxed">
+                  If you mistakenly changed the API endpoint or live detections are offline, copy and paste the default production API above to restore all detection capabilities, or use your local endpoint <code className="font-mono text-slate-400">http://127.0.0.1:8000/predict</code> when running your local development server (`npm run dev`).
+                </p>
+              </div>
             </div>
           </GlassCard>
 
