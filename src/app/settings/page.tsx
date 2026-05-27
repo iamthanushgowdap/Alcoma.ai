@@ -148,7 +148,7 @@ export default function SettingsPage() {
               {/* MapTiler Key */}
               <div className="space-y-2">
                 <label htmlFor="maptiler-key" className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
-                  MapTiler API Key (Free)
+                  MapTiler API Key
                 </label>
                 <input
                   id="maptiler-key"
@@ -158,9 +158,38 @@ export default function SettingsPage() {
                   placeholder="Enter MapTiler API Key"
                   className="w-full bg-slate-950/60 border border-white/5 rounded-xl px-4 py-3 text-xs text-white font-mono placeholder-slate-600 focus:outline-none focus:border-white/20 transition-colors"
                 />
-                <p className="text-[10px] text-slate-500 leading-relaxed">
-                  Required to render interactive vector map layers and stitch satellite tiles. Get your free key at <a href="https://maptiler.com" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">maptiler.com</a>.
-                </p>
+                
+                {/* Visual Explanation list */}
+                <div className="p-4 bg-slate-950/40 border border-white/5 rounded-xl space-y-3 mt-3">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                    Why is this key required?
+                  </span>
+                  <p className="text-[10px] text-slate-500 leading-relaxed">
+                    MapTiler is the high-performance GIS tiles engine powering Alcoma.ai. It is required to render interactive vector basemaps, compute multi-spectral Copernicus satellite coordinate zooms, and stitch hydrodynamic ocean currents canvas flows in the manual and satellite workspaces.
+                  </p>
+                  
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block pt-1">
+                    How to get your free key:
+                  </span>
+                  <p className="text-[10px] text-slate-500 leading-relaxed">
+                    1. Go to <a href="https://maptiler.com" target="_blank" rel="noreferrer" className="text-cyan-400 hover:underline">maptiler.com</a> and sign up for a free developer account (no credit card required).<br/>
+                    2. Go to your **MapTiler Cloud Admin** dashboard.<br/>
+                    3. Under **Credentials & Keys**, copy your primary API Key and paste it into the field above.
+                  </p>
+                  
+                  {/* Deployment environment variable tips */}
+                  <div className="border-t border-white/5 pt-3 mt-1">
+                    <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider block mb-1">
+                      💡 Production Deployment Tip (Vercel)
+                    </span>
+                    <p className="text-[10px] text-slate-500 leading-relaxed">
+                      To avoid entering this key manually every time you clear browser cookies or open private windows, define it in your Vercel Project Settings as an environment variable:<br/>
+                      • <strong>Key:</strong> <code className="font-mono text-slate-400">NEXT_PUBLIC_MAPTILER_KEY</code><br/>
+                      • <strong>Value:</strong> <code className="font-mono text-slate-400">your-maptiler-api-key-here</code>
+                    </p>
+                  </div>
+                </div>
+
               </div>
             </div>
           </GlassCard>
