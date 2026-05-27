@@ -14,7 +14,6 @@ import {
   Info,
   ChevronLeft,
   ChevronRight,
-  Anchor,
   Globe,
   Layers,
   TrendingUp,
@@ -55,9 +54,9 @@ export default function Sidebar() {
           <motion.div
             animate={{ rotate: collapsed ? 360 : 0 }}
             transition={{ duration: 1 }}
-            className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center"
+            className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden"
           >
-            <Anchor className="text-white" size={18} />
+            <img src="/favicon.ico" alt="Alcoma.ai Logo" className="w-5 h-5 object-contain select-none pointer-events-none" />
           </motion.div>
           {!collapsed && (
             <motion.div
